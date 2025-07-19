@@ -117,26 +117,29 @@ Create `/etc/systemd/system/kanban-app.service:`
 
 `sudo nano /etc/systemd/system/kanban-app.service`
 
-Add:[Unit]
+**Add:**
 Description=Kanban Board Node.js Application
 After=network.target
 
-[Service]
-ExecStart=/usr/bin/node /home/ubuntu/kanban-app/server.js
-WorkingDirectory=/home/ubuntu/kanban-app
-Restart=always
-User=ubuntu
-Environment=PORT=3000
-Environment=JWT_SECRET=your-secure-secret
+`[Service]`
+`ExecStart=/usr/bin/node /home/ubuntu/kanban-app/server.js`
+`WorkingDirectory=/home/ubuntu/kanban-app`
+`Restart=always`
+`User=ubuntu`
+`Environment=PORT=3000`
+`Environment=JWT_SECRET=your-secure-secret`
 
-[Install]
-WantedBy=multi-user.target
+`[Install]
+WantedBy=multi-user.target`
 
 
-Enable and start:sudo systemctl daemon-reload
-sudo systemctl enable kanban-app
-sudo systemctl start kanban-app
+**Enable and start:**
 
+`sudo systemctl daemon-reload`
+
+`sudo systemctl enable kanban-app`
+
+`sudo systemctl start kanban-app`
 
 
 
