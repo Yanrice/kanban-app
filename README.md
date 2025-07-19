@@ -23,8 +23,8 @@ This is a multi-user Kanban board application built with a `Node.js/Express` bac
 ## Repository Structure
 
 #### kanban-board-app/
-- public/               > [!*Frontend assets*]
-  - css/               > *CSS styles*
+- public/               *Frontend assets*
+  - css/                *CSS styles*
     - styles.css
   - js/                *JavaScript for frontend logic*
     - app.js
@@ -43,16 +43,16 @@ This is a multi-user Kanban board application built with a `Node.js/Express` bac
 
 ## Prerequisites
 
-Node.js: v18 or later
-npm: v9 or later
-Git: For cloning the repository
-AWS Account: For EC2 deployment (Free Tier eligible)
-GCP Account: For Jenkins VM (Free Tier eligible)
-Jenkins: Installed on GCP VM
-SSH Key: For secure deployment to EC2
+* **Node.js:** v18 or later
+* **npm:** v9 or later
+* **Git:** For cloning the repository
+* **AWS Account:** For EC2 deployment (Free Tier eligible)
+* **GCP Account:** For Jenkins VM (Free Tier eligible)
+* **Jenkins:** Installed on GCP VM
+* **SSH Key:** For secure deployment to EC2
 
-Setup Instructions
-Local Development
+## Setup Instructions
+## *Local Development*
 
 ### Clone the Repository:
 
@@ -86,11 +86,12 @@ Access at `http://localhost:3000`.
 
 `npm run dev`
 
-Deployment to AWS EC2
-This section describes deploying to an AWS EC2 t4g.micro instance (Free Tier eligible, ~$7-8/month On-Demand otherwise) using a Jenkins pipeline on a GCP VM.
-EC2 Setup
+## Deployment to AWS EC2
+This section describes deploying to an AWS EC2 `t4g.micro` instance (Free Tier eligible, ~$7-8/month On-Demand otherwise) using a Jenkins pipeline on a GCP VM.
 
-Launch EC2 Instance:
+## EC2 Setup
+
+1. **Launch EC2 Instance:**
 AMI: Ubuntu Server 22.04 LTS (ARM-based).
 Instance Type: t4g.micro (2 vCPUs, 1 GiB RAM).
 Key Pair: Create/download kanban-key.pem.
@@ -102,18 +103,19 @@ TCP (port 3000): 0.0.0.0/0.
 Storage: 8 GiB gp3 EBS (Free Tier eligible).
 
 
-Install Dependencies:
+2. **Install Dependencies:**
 SSH into EC2: ssh -i kanban-key.pem ubuntu@<EC2-Public-IP>.
 Update system and install Node.js:sudo apt update && sudo apt upgrade -y
 sudo apt install -y nodejs npm
 
+Create app directory: `mkdir ~/kanban-app.`
 
-Create app directory: mkdir ~/kanban-app.
 
+3. **Set Up systemd Service:**
+   
+Create `/etc/systemd/system/kanban-app.service:`
 
-Set Up systemd Service:
-Create /etc/systemd/system/kanban-app.service:sudo nano /etc/systemd/system/kanban-app.service
-
+`sudo nano /etc/systemd/system/kanban-app.service`
 
 Add:[Unit]
 Description=Kanban Board Node.js Application
