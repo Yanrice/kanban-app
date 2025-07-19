@@ -23,9 +23,9 @@ This is a multi-user Kanban board application built with a `Node.js/Express` bac
 ## Repository Structure
 
 kanban-board-app/
-── public/                * Frontend assets
-│  ── css/               * CSS styles
-│   │   └── styles.css
+- public/                * Frontend assets
+  -  css/               * CSS styles
+     - styles.css
 │   ├── js/                * JavaScript for frontend logic
 │   │   ├── app.js
 │   │   ├── auth.js
