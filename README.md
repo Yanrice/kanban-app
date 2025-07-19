@@ -1,6 +1,7 @@
-Kanban Board Application
+# Kanban Board Application
 
-Overview
+### Overview
+
 This is a multi-user Kanban board application built with a Node.js/Express backend and a vanilla JavaScript frontend, using an in-memory SQLite database for lightweight data storage. The project showcases DevOps practices, including a CI/CD pipeline with Jenkins, deployment to AWS EC2, and adaptability for multiple environments (development, testing, production). It demonstrates skills in automation, infrastructure management, and secure application deployment.
 Features
 
