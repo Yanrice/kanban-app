@@ -1,9 +1,10 @@
 # Kanban Board Application
 
-### Overview
+## Overview
 
 This is a multi-user Kanban board application built with a Node.js/Express backend and a vanilla JavaScript frontend, using an in-memory SQLite database for lightweight data storage. The project showcases DevOps practices, including a CI/CD pipeline with Jenkins, deployment to AWS EC2, and adaptability for multiple environments (development, testing, production). It demonstrates skills in automation, infrastructure management, and secure application deployment.
-Features
+
+### Features
 
 User Authentication: Register and login with JWT-based authentication.
 Kanban Boards: Create, view, and manage boards with columns ("To Do", "In Progress", "Done") and tasks.
@@ -12,14 +13,15 @@ In-Memory Database: Uses SQLite in-memory for fast, non-persistent storage (idea
 CI/CD Pipeline: Jenkins pipeline for automated deployment to AWS EC2 or other environments.
 Environment Flexibility: Configurable for local development, cloud servers, or containerized setups.
 
-Tech Stack
+## Tech Stack
 
 Backend: Node.js, Express, SQLite (in-memory), bcryptjs, jsonwebtoken
 Frontend: HTML, CSS, vanilla JavaScript
 DevOps: Jenkins (CI/CD), AWS EC2, GCP VM, systemd for process management
 Other Tools: Git, npm, SSH for deployment
 
-Repository Structure
+## Repository Structure
+
 kanban-board-app/
 ├── public/                # Frontend assets
 │   ├── css/               # CSS styles
@@ -39,7 +41,7 @@ kanban-board-app/
 ├── server.js              # Backend server code
 └── README.md              # Project documentation
 
-Prerequisites
+## Prerequisites
 
 Node.js: v18 or later
 npm: v9 or later
@@ -52,32 +54,37 @@ SSH Key: For secure deployment to EC2
 Setup Instructions
 Local Development
 
-Clone the Repository:git clone https://github.com/<your-username>/kanban-board-app.git
-cd kanban-board-app
+### Clone the Repository:
 
+`git clone https://github.com/<your-username>/kanban-board-app.git`
 
-Install Dependencies:npm install
+`cd kanban-board-app`
 
+### Install Dependencies:
 
-Configure Environment:
-Copy .env.example to .env:cp .env.example .env
+`npm install`
 
+### Configure Environment:
 
-Edit .env with a secure JWT_SECRET:PORT=3000
-JWT_SECRET=your-secure-secret
+Copy `.env.example` to `.env:`
 
+`cp .env.example .env`
 
+Edit `.env` with a secure `JWT_SECRET:`
 
+`PORT=3000`
 
-Run the Application:npm start
+`JWT_SECRET=your-secure-secret`
 
+### Run the Application:
 
-Access at http://localhost:3000.
+`npm start`
 
+Access at `http://localhost:3000`.
 
-Development Mode (with auto-restart):npm run dev
+### Development Mode (with auto-restart):
 
-
+`npm run dev`
 
 Deployment to AWS EC2
 This section describes deploying to an AWS EC2 t4g.micro instance (Free Tier eligible, ~$7-8/month On-Demand otherwise) using a Jenkins pipeline on a GCP VM.
