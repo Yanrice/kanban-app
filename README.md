@@ -52,7 +52,7 @@ This is a multi-user Kanban board application built with a `Node.js/Express` bac
 * **SSH Key:** For secure deployment to EC2
 
 ## Setup Instructions
-## *Local Development*
+### *Local Development*
 
 ### Clone the Repository:
 
