@@ -2,16 +2,16 @@
 
 ## Overview
 
-This is a multi-user Kanban board application built with a Node.js/Express backend and a vanilla JavaScript frontend, using an in-memory SQLite database for lightweight data storage. The project showcases DevOps practices, including a CI/CD pipeline with Jenkins, deployment to AWS EC2, and adaptability for multiple environments (development, testing, production). It demonstrates skills in automation, infrastructure management, and secure application deployment.
+This is a multi-user Kanban board application built with a `Node.js/Express` backend and a vanilla JavaScript frontend, using an in-memory `SQLite` database for lightweight data storage. The project showcases DevOps practices, including a **CI/CD** pipeline with Jenkins, deployment to **AWS EC2**, and adaptability for multiple environments (development, testing, production). It demonstrates skills in automation, infrastructure management, and secure application deployment.
 
 ### Features
 
-* User Authentication: Register and login with JWT-based authentication.
-* Kanban Boards: Create, view, and manage boards with columns ("To Do", "In Progress", "Done") and tasks.
-* Task Management: Add, update, and delete tasks with priorities and positions.
-* In-Memory Database: Uses SQLite in-memory for fast, non-persistent storage (ideal for development/testing).
-* CI/CD Pipeline: Jenkins pipeline for automated deployment to AWS EC2 or other environments.
-* Environment Flexibility: Configurable for local development, cloud servers, or containerized setups.
+* **User Authentication:** Register and login with JWT-based authentication.
+* **Kanban Boards:** Create, view, and manage boards with columns ("To Do", "In Progress", "Done") and tasks.
+* **Task Management:** Add, update, and delete tasks with priorities and positions.
+* **In-Memory Database:** Uses SQLite in-memory for fast, non-persistent storage (ideal for development/testing).
+* **CI/CD Pipeline:** Jenkins pipeline for automated deployment to AWS EC2 or other environments.
+* **Environment Flexibility:** Configurable for local development, cloud servers, or containerized setups.
 
 ## Tech Stack
 
