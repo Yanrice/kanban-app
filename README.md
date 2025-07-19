@@ -92,21 +92,23 @@ This section describes deploying to an AWS EC2 `t4g.micro` instance (Free Tier e
 ## EC2 Setup
 
 1. **Launch EC2 Instance:**
-AMI: Ubuntu Server 22.04 LTS (ARM-based).
-Instance Type: t4g.micro (2 vCPUs, 1 GiB RAM).
-Key Pair: Create/download kanban-key.pem.
-Security Group: Allow:
-SSH (port 22): From Jenkins VM IP or 0.0.0.0/0 (restrict later).
-TCP (port 3000): 0.0.0.0/0.
+`AMI: Ubuntu Server 22.04 LTS (ARM-based).`
+`Instance Type: t4g.micro (2 vCPUs, 1 GiB RAM).`
+`Key Pair: Create/download kanban-key.pem.`
 
+**Security Group: Allow:**
 
-Storage: 8 GiB gp3 EBS (Free Tier eligible).
+**SSH (port 22):**
+`From Jenkins VM IP or 0.0.0.0/0 (restrict later).`
+`TCP (port 3000): 0.0.0.0/0.`
+
+`Storage: 8 GiB gp3 EBS (Free Tier eligible).`
 
 
 2. **Install Dependencies:**
-SSH into EC2: ssh -i kanban-key.pem ubuntu@<EC2-Public-IP>.
-Update system and install Node.js:sudo apt update && sudo apt upgrade -y
-sudo apt install -y nodejs npm
+* **SSH into EC2:** `ssh -i kanban-key.pem ubuntu@<EC2-Public-IP>.`
+* Update system and install Node.js:sudo apt update && sudo apt upgrade -y
+* `sudo apt install -y nodejs npm`
 
 Create app directory: `mkdir ~/kanban-app.`
 
@@ -141,109 +143,98 @@ WantedBy=multi-user.target`
 
 `sudo systemctl start kanban-app`
 
+**Jenkins Setup on GCP VM**
 
+1. **Install Jenkins:**
 
-
-Jenkins Setup on GCP VM
-
-Install Jenkins:
 On GCP VM: Follow official Jenkins installation for Ubuntu.
-Access at http://<GCP-VM-Public-IP>:8080.
+Access at `http://<GCP-VM-Public-IP>:8080`.
 
 
-Install Plugins:
-Go to Manage Jenkins > Manage Plugins > Available.
-Install: Git, Publish Over SSH, Pipeline.
+2. **Install Plugins:**
+   
+Go to `Manage Jenkins > Manage Plugins > Available`.
+Install: `Git, Publish Over SSH, Pipeline`.
 
 
-Configure SSH:
-Go to Manage Jenkins > Configure System > Publish over SSH.
-Add SSH Server:
-Name: ec2-kanban.
-Hostname: <EC2-Public-IP>.
-Username: ubuntu.
-SSH Key: Paste kanban-key.pem contents.
-Test connection.
+3. **Configure SSH:**
+* Go to `Manage Jenkins > Configure System > Publish over SSH`.
+* Add SSH Server:
+  - Name: `ec2-kanban`.
+  - Hostname: `<EC2-Public-IP>`.
+  - Username: ubuntu.
+  - SSH Key: Paste kanban-key.pem contents.
+  - Test connection.
 
-
-
-
-Create Pipeline:
-New Item: Kanban-Pipeline, type Pipeline.
-SCM: Git, URL: https://github.com/<your-username>/kanban-board-app.
-Script Path: Jenkinsfile.
-Save and run Build Now.
+4.  **Create Pipeline:**
+New Item: `Kanban-Pipeline`, type `Pipeline`.
+SCM: `Git`, URL: `https://github.com/<your-username>/kanban-board-app`.
+Script Path: `Jenkinsfile`.
+Save and run `Build Now`.
 
 
 
-Jenkins Pipeline
-The Jenkinsfile automates deployment:
+### Jenkins Pipeline
+The `Jenkinsfile` automates deployment:
 
-Checks out code from GitHub.
-Installs dependencies.
-Deploys to EC2 via SSH, installs dependencies, and restarts the kanban-app service.
-See Jenkinsfile for details.
+* Checks out code from GitHub.
+* Installs dependencies.
+* Deploys to EC2 via SSH, installs dependencies, and restarts the kanban-app service.
+* See Jenkinsfile for details.
 
-Deployment to Other Environments
+###  Deployment to Other Environments
 The app is adaptable for other environments (e.g., Azure, local servers, Heroku):
 
-Local Server:
+1. **Local Server:**
 Follow "Local Development" steps.
-Use systemd or pm2 (npm install -g pm2) for process management.
+Use `systemd` or `pm2` (`npm install -g pm2`) for process management.
 
+2. **Other Clouds (e.g., Azure VM):**
+   
+* Similar to EC2 setup: Install Node.js, configure systemd, update Jenkinsfile with new SSH details.
 
-Other Clouds (e.g., Azure VM):
-Similar to EC2 setup: Install Node.js, configure systemd, update Jenkinsfile with new SSH details.
+3. **PaaS** (e.g., Heroku):
+   
+* Add `Procfile`:
+  
+ `web: node server.js`
 
+`Update package.json:"scripts": {`
+  `"start": "node server.js",`
+ ` "heroku-postbuild": "npm install"`
+`}`
 
-PaaS (e.g., Heroku):
-Add Procfile:web: node server.js
+* Deploy with heroku git:push.
 
+4 . **Persistent Database (Production):**
+* Modify `server.js` to use file-based SQLite (`new sqlite3.Database('./kanban.db')`) or a managed database (e.g., AWS RDS PostgreSQL
 
-Update package.json:"scripts": {
-  "start": "node server.js",
-  "heroku-postbuild": "npm install"
-}
+* Example for PostgreSQL:
+  - Add pg to package.json dependencies.
 
+  - Update server.js to use pg client with connection string from environment variables.
 
-Deploy with heroku git:push.
+### Security Best Practices
 
+* **JWT_SECRET:** Store in AWS Secrets Manager or environment variables, not in code.
+* **EC2 Security Group:** Restrict SSH to Jenkins VM IP.
+* **HTTPS:** Use AWS ALB with ACM certificate for SSL.
+* **Database:** Switch to persistent storage (e.g., RDS) for production.
+* **Logging:** Enable CloudWatch Logs on EC2 for monitoring.
 
-Persistent Database (Production):
-Modify server.js to use file-based SQLite (new sqlite3.Database('./kanban.db')) or a managed database (e.g., AWS RDS PostgreSQL).
-Example for PostgreSQL:
-Add pg to package.json dependencies.
-Update server.js to use pg client with connection string from environment variables.
+### Future Improvements
 
+* Add unit/integration tests (e.g., Jest/Mocha).
+* Implement drag-and-drop for tasks in the frontend.
+* Add CI/CD for multiple environments (e.g., staging, production).
+* Use a process manager like PM2 for better Node.js management.
 
+### Contributing
 
-
-
-Security Best Practices
-
-JWT_SECRET: Store in AWS Secrets Manager or environment variables, not in code.
-EC2 Security Group: Restrict SSH to Jenkins VM IP.
-HTTPS: Use AWS ALB with ACM certificate for SSL.
-Database: Switch to persistent storage (e.g., RDS) for production.
-Logging: Enable CloudWatch Logs on EC2 for monitoring.
-
-Future Improvements
-
-Add unit/integration tests (e.g., Jest/Mocha).
-Implement drag-and-drop for tasks in the frontend.
-Add CI/CD for multiple environments (e.g., staging, production).
-Use a process manager like PM2 for better Node.js management.
-
-Contributing
 Contributions are welcome! Please:
 
-Fork the repository.
-Create a feature branch (git checkout -b feature/new-feature).
-Commit changes (git commit -m 'Add new feature').
-Push to the branch (git push origin feature/new-feature).
-Open a pull request.
-
-License
-MIT License
-Contact
-For questions or feedback, reach out via GitHub Issues or email at .
+1. Fork the repository.
+2. Create a feature branch (git checkout -b feature/new-feature).
+3. Commit changes (git commit -m 'Add new feature').
+4. Push to the branch (git push origin feature/new-feature).
+5. Open a pull request.
