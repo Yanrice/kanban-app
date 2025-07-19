@@ -15,10 +15,10 @@ This is a multi-user Kanban board application built with a `Node.js/Express` bac
 
 ## Tech Stack
 
-Backend: Node.js, Express, SQLite (in-memory), bcryptjs, jsonwebtoken
-Frontend: HTML, CSS, vanilla JavaScript
-DevOps: Jenkins (CI/CD), AWS EC2, GCP VM, systemd for process management
-Other Tools: Git, npm, SSH for deployment
+* **Backend:** Node.js, Express, SQLite (in-memory), bcryptjs, jsonwebtoken
+* **Frontend:** HTML, CSS, vanilla JavaScript
+* **DevOps:** Jenkins (CI/CD), AWS EC2, GCP VM, systemd for process management
+* **Other Tools:** Git, npm, SSH for deployment
 
 ## Repository Structure
 
