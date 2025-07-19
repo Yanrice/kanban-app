@@ -22,24 +22,24 @@ This is a multi-user Kanban board application built with a `Node.js/Express` bac
 
 ## Repository Structure
 
-kanban-board-app/
+#### kanban-board-app/
 - public/                * Frontend assets
-  -  css/               * CSS styles
-     - styles.css
-│   ├── js/                * JavaScript for frontend logic
-│   │   ├── app.js
-│   │   ├── auth.js
-│   │   └── board.js
-│   └── index.html         * Main HTML file
-├── .github/               * GitHub Actions for CI (optional)
-│   └── workflows/
-│       └── ci.yml
-├── .env.example           # Example environment variables
-├── .gitignore             # Files to ignore in Git
-├── Jenkinsfile            # Jenkins pipeline for CI/CD
-├── package.json           # Node.js dependencies and scripts
-├── server.js              # Backend server code
-└── README.md              # Project documentation
+  - css/               * CSS styles
+    - styles.css
+  - js/                * JavaScript for frontend logic
+    - app.js
+    - auth.js
+    - board.js
+  - index.html         * Main HTML file
+- .github/               * GitHub Actions for CI (optional)
+  - workflows/
+    - ci.yml
+- .env.example           # Example environment variables
+- .gitignore             # Files to ignore in Git
+- Jenkinsfile            # Jenkins pipeline for CI/CD
+- package.json           # Node.js dependencies and scripts
+- server.js              # Backend server code
+- README.md              # Project documentation
 
 ## Prerequisites
 
