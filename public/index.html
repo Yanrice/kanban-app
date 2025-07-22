@@ -3,16 +3,143 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kanban Board</title>
-    <link rel="stylesheet" href="/css/styles.css">
+    <title>Modern Kanban Board</title>
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-    <div id="app">
-        <div id="auth-container"></div>
-        <div id="board-container" style="display: none;"></div>
+    <div class="app-container">
+        <!-- Authentication Screen -->
+        <div class="auth-screen" id="authScreen">
+            <div class="auth-card">
+                <h1>Kanban Board</h1>
+                <p>Organize your projects with friends</p>
+                
+                <form class="auth-form" id="authForm">
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <input type="text" id="username" required placeholder="Enter your username">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" required placeholder="Enter your email">
+                    </div>
+                    
+                    <div class="form-group" id="passwordGroup">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" required placeholder="Enter your password">
+                    </div>
+                    
+                    <button type="submit" class="auth-btn" id="authSubmit">Sign Up</button>
+                </form>
+                
+                <div class="auth-toggle">
+                    <span id="authToggleText">Already have an account?</span>
+                    <button type="button" id="authToggleBtn">Sign In</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dashboard Screen -->
+        <div class="dashboard" id="dashboard">
+            <div class="dashboard-header">
+                <div class="user-info">
+                    <h2 id="welcomeUser">Welcome!</h2>
+                    <p>Manage your Kanban boards</p>
+                </div>
+                <div class="header-actions">
+                    <button class="btn btn-primary" id="newBoardBtn">New Board</button>
+                    <button class="btn btn-secondary" id="logoutBtn">Logout</button>
+                </div>
+            </div>
+
+            <div class="board-selection">
+                <div class="board-grid" id="boardGrid">
+                    <div class="board-card create-board-card" id="createBoardCard">
+                        <div class="icon">+</div>
+                        <h3>Create New Board</h3>
+                        <p>Start organizing your tasks</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Kanban Board Screen -->
+        <div class="kanban-board" id="kanbanBoard">
+            <div class="board-header">
+                <h1 class="board-title" id="currentBoardTitle">Board Name</h1>
+                <div class="header-actions">
+                    <button class="btn btn-secondary" id="backToBoardsBtn">← Back to Boards</button>
+                    <button class="btn btn-secondary" id="logoutBoardBtn">Logout</button>
+                </div>
+            </div>
+
+            <div class="kanban-container">
+                <div class="column" data-column="todo">
+                    <div class="column-header">
+                        <span class="column-title">To Do</span>
+                        <span class="task-count">0</span>
+                    </div>
+                    <button class="add-task-btn" data-column="todo">+ Add Task</button>
+                    <div class="task-list" id="todo-list"></div>
+                </div>
+
+                <div class="column" data-column="in-progress">
+                    <div class="column-header">
+                        <span class="column-title">In Progress</span>
+                        <span class="task-count">0</span>
+                    </div>
+                    <button class="add-task-btn" data-column="in-progress">+ Add Task</button>
+                    <div class="task-list" id="in-progress-list"></div>
+                </div>
+
+                <div class="column" data-column="done">
+                    <div class="column-header">
+                        <span class="column-title">Done</span>
+                        <span class="task-count">0</span>
+                    </div>
+                    <button class="add-task-btn" data-column="done">+ Add Task</button>
+                    <div class="task-list" id="done-list"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Create Board Modal -->
+        <div class="modal" id="createBoardModal">
+            <div class="modal-content">
+                <h3>Create New Board</h3>
+                <input type="text" id="boardName" placeholder="Board name..." maxlength="50">
+                <textarea id="boardDescription" placeholder="Board description (optional)..." rows="3"></textarea>
+                <div class="modal-actions">
+                    <button class="modal-btn cancel-btn" id="cancelBoardBtn">Cancel</button>
+                    <button class="modal-btn save-btn" id="createBoardSubmitBtn">Create Board</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Task Modal -->
+        <div class="modal" id="taskModal">
+            <div class="modal-content">
+                <h3 id="taskModalTitle">Add New Task</h3>
+                <textarea id="taskInput" placeholder="Enter your task description..."></textarea>
+                <div class="form-group">
+                    <label for="taskPriority">Priority</label>
+                    <select id="taskPriority">
+                        <option value="low">Low</option>
+                        <option value="medium" selected>Medium</option>
+                        <option value="high">High</option>
+                    </select>
+                </div>
+                <div class="modal-actions">
+                    <button class="modal-btn cancel-btn" id="cancelTaskBtn">Cancel</button>
+                    <button class="modal-btn save-btn" id="saveTaskBtn">Save Task</button>
+                </div>
+            </div>
+        </div>
     </div>
-    <script src="/js/auth.js"></script>
-    <script src="/js/board.js"></script>
-    <script src="/js/app.js"></script>
+
+    <script src="js/auth.js"></script>
+    <script src="js/board.js"></script>
+    <script src="js/app.js"></script>
 </body>
 </html>
