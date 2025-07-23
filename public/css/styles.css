@@ -611,6 +611,15 @@ body {
     to { transform: translate(-50%, -50%) rotate(360deg); }
 }
 
+/* Screen Management */
+.screen {
+    display: none;
+}
+
+.screen.active {
+    display: block;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
     .dashboard-header, .board-header {
